@@ -67,10 +67,6 @@ resource "azurerm_application_insights" "example" {
   application_type    = "web"
 }
     
-    
-      Développer (67 lignes)
-      Réduire
-    
   
   
 
