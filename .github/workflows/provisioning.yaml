@@ -28,8 +28,8 @@ jobs:
         cd terraform
         terraform init
         terraform apply -auto-approve \
-          -var resource_group_name="rg-mfo-nfs-2022" \
+          -var resource_group_name="nfs-pierrehlvt" \
           -var location="France Central" \
-          -var resources_suffix="mfo-nfs-2022" \
+          -var resources_suffix="nfs-pierrehlvt" \
           -var sql_administrator_login=${{ secrets.sql_admin_login }} \
           -var sql_administrator_password=${{ secrets.sql_admin_password }}
