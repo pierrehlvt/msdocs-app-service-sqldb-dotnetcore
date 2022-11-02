@@ -31,6 +31,14 @@ resource "azurerm_mssql_database" "example" {
   max_size_gb    = 2
   sku_name       = "Basic"
 }
+
+resource "azurerm_mssql_firewall_rule" "example" {
+  name             = "AllowAzureServices"
+  server_id        = azurerm_mssql_server.example.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
+
 #WebApp
 resource "azurerm_service_plan" "example" {
   name                = "asp-${var.resources_suffix}"
