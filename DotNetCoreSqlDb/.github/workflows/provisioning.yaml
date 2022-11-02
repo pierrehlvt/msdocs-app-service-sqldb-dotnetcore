@@ -1,0 +1,35 @@
+name: 'Terraform'
+ 
+on:
+  workflow_dispatch:
+ 
+jobs:
+  terraform:
+    name: 'Terraform'
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+    runs-on: ubuntu-latest
+ 
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+ 
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+         
+    - name: 'Terraform provisioning'
+      run: |
+        cd terraform
+        terraform init
+        terraform apply -auto-approve \
+          -var resource_group_name="rg-mfo-nfs-2022" \
+          -var location="France Central" \
+          -var resources_suffix="mfo-nfs-2022" \
+          -var sql_administrator_login=${{ secrets.sql_admin_login }} \
+          -var sql_administrator_password=${{ secrets.sql_admin_password }}
